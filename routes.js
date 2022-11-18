@@ -12,19 +12,19 @@ const routeserver = (req,res) => {
     if (req.url === "/message" && method === 'POST'){
         const body = [];
         req.on('data', (chunk) =>{    //new chunk ready to be read
-            console.log(chunk);
             body.push(chunk);
         })
         return req.on('end', () => {  // no chunk is available to read
            const parsedBody = Buffer.concat(body).toString();
            const message = parsedBody.split('=')[1].replace('+',' ');
-        //    fs.writeFile('message.txt',message, err => {
-        //         res.statusCode = 302;
-        //         res.setHeader('Location','/');
-        //         return res.end();
-        //    });
-           res.write(`<body><form action="/message" method="POST"><p>${message}</p><input type="text" name="message"><button>send</button></body>`);
-           return res.end();
+           fs.writeFile('message.txt',message, err => {
+                res.statusCode = 302;
+                res.setHeader('Location','/');
+                return res.end();
+           });
+        //    res.setHeader('Location','/');
+        //    res.write(`<body><form action="/message" method="POST"><p>${message}</p><input type="text" name="message"><button>send</button></body>`);
+        //    return res.end();
         })   
     }
     // fast forward code
