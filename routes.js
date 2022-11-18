@@ -8,7 +8,7 @@ const routeserver = (req,res) => {
             }
             res.write('<html>');
             res.write('<head><title> Enter message </title></head>');
-            res.write(`<body><form action="/message" method="POST"><p>${data}</p><input type="text" name="message"><button>send</button></body>`)
+            res.write(`<body><form action="/message" method="POST"><p>\n${data}</p><input type="text" name="message"><button>send</button></body>`)
             res.write('</html>');
             return res.end();
         })
