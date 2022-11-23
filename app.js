@@ -7,7 +7,8 @@ const bodyparser = require('body-parser');
 const express = require('express');  //here express returns a 'e' named fuction
 const app = express();
 const path = require('path');
-const rootdir = require('./util/path');
+
+const productcontroller = require('./controllers/productcontrollers');
 
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -18,8 +19,6 @@ app.use('/shop',shoproutes);
 
 app.use(contactusroutes);
 
-app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(rootdir,'views','404.html'));
-})
+app.use(productcontroller.errorpage);
 
 app.listen(4000);
